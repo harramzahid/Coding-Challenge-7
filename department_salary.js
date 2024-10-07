@@ -54,3 +54,30 @@ const company = {
 };
 
 console.log("Company structure:", company)
+
+//Task 2 Create a Recursive Function to Calculate Total Salary for a Department
+// in this fucntion we will calculate the total salaries of the department usig the employees, as well as their subordinates
+function calculateDepartmentSalary(departmentName) {
+    const department = company.departments.find(department => department.departmentName === departmentName);
+
+         function calculateEmployeeSalary(employee) {
+             let totalSalary = employee.salary;
+
+        const subordinates = employee.subordinates;
+        for (let subordinate of subordinates) {
+            totalSalary += calculateEmployeeSalary(subordinate);
+        }
+    return totalSalary;
+    }
+
+    let totalDepartmentSalary = 0;
+    for (let employee of department.employees) {
+        totalDepartmentSalary += calculateEmployeeSalary(employee);   
+    }
+    return totalDepartmentSalary;
+}
+
+console.log(`For the "Engineering" department, the total salary is $${calculateDepartmentSalary("Engineering")}.`);
+console.log(`And for the "Sales" department The Total Salary is $${calculateDepartmentSalary("Sales")}.`);
+
+
