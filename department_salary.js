@@ -80,4 +80,26 @@ function calculateDepartmentSalary(departmentName) {
 console.log(`For the "Engineering" department, the total salary is $${calculateDepartmentSalary("Engineering")}.`);
 console.log(`And for the "Sales" department The Total Salary is $${calculateDepartmentSalary("Sales")}.`);
 
+//Task 3 Create a Function to Calculate the Total Salary for All Departments
+// in this fucntion our job is to create a fucntion that calculates the salary of the entire company
+function calculateCompanySalary(company) {
+         function calculateEmployeeSalary(employee) {
+              let totalSalary = employee.salary;
+             const subordinates = employee.subordinates;
+                for (let subordinate of subordinates) {
+                 totalSalary += calculateEmployeeSalary(subordinate);
+        }
+        return totalSalary;
+    }
+    let totalCompanySalary = 0;
+         for (let department of company.departments) {
+             let totalDepartmentSalary = 0;
+             for (let employee of department.employees) {
+                totalDepartmentSalary += calculateEmployeeSalary(employee);
+        }
+        totalCompanySalary += totalDepartmentSalary;
+    }
+    return totalCompanySalary
+}
 
+console.log(`The total salary for the entire company is, $${calculateCompanySalary(company)}.`);
